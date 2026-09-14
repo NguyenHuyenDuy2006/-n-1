@@ -27,7 +27,7 @@ export default function LoginPage() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:8080/backend/login.php", {
+   const res = await fetch("http://localhost/synapse-codex-main/synapse-codex-main/backend/login.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

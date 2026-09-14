@@ -44,7 +44,7 @@ export default function RegisterPage() {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:8080/backend/register.php", {
+      const res = await fetch("http://localhost/backend/register.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -16,7 +16,7 @@ export function ServicesSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost/api/services/read.php")
+  fetch("http://localhost/backend/read.php")
       .then((res) => res.json())
       .then((data) => {
         if (data.status) setServices(data.data);
