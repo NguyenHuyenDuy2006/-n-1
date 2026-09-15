@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 15, 2026 at 03:30 PM
+-- Generation Time: Sep 15, 2026 at 04:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -66,7 +66,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `full_name`, `password`, `role`, `created_at`) VALUES
-(1, '', 'nhduycntt2411086@student.ctuet.edu.vn', '', '$2y$10$hjuF3vw4G9RKh4vwXg8VgegBnrIDu06gfqZR8ISh.x6.0qb/tr1WW', 'user', '2026-09-14 15:32:34'),
+(1, 'nguyenhuyenduy4', 'nhduycntt2411086@student.ctuet.edu.vn', '', '$2y$10$hjuF3vw4G9RKh4vwXg8VgegBnrIDu06gfqZR8ISh.x6.0qb/tr1WW', 'admin', '2026-09-14 15:32:34'),
 (3, 'nguyenhuyenduy', 'nguyenhuyenduy18022006@gmail.com', 'Nguyễn Huyền Duy', '$2y$10$uUiV28cL1j7bxiHar4y1huLNPU7sPm4kjQyb0Sc2PiYkW/8B2ogtG', 'user', '2026-09-14 15:46:14'),
 (4, 'nguyenhuyenduy2', 'nhduycntt2411086@student.ctuet.edu.vnm', 'Nguyễn Huyền Duy 2', '$2y$10$/Gid1jfG1PwxcHnxYXPSDuLp7n67lK3tpG7uiEOQm16EZnK8VhHry', 'user', '2026-09-14 17:31:24');
 
