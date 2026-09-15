@@ -21,7 +21,7 @@ interface ServiceItem {
   title: string;
   description: string;
   icon: string;
-  features: string;
+  features: string[] | string | null;
 }
 
 export default function AdminServicesPage() {
@@ -85,7 +85,9 @@ export default function AdminServicesPage() {
       title: item.title,
       description: item.description,
       icon: item.icon,
-      features: item.features ?? "",
+      features: Array.isArray(item.features)
+        ? item.features.join("\n")
+        : item.features ?? "",
     });
     setIsModalOpen(true);
   };
@@ -123,7 +125,7 @@ export default function AdminServicesPage() {
       if (data.status) {
         showNotify("success", isEdit ? "Cập nhật dịch vụ thành công!" : "Thêm dịch vụ mới thành công!");
         handleCloseModal();
-        fetchServices(); // Tải lại bảng sau khi sửa/thêm
+        fetchServices();
       } else {
         showNotify("error", data.message || "Thao tác thất bại.");
       }
@@ -162,7 +164,6 @@ export default function AdminServicesPage() {
   return (
     <div className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-12">
       <div className="max-w-7xl mx-auto">
-        {/* Header trang Quản trị */}
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800 pb-6 mb-8">
           <div>
             <Link
@@ -185,7 +186,6 @@ export default function AdminServicesPage() {
           </button>
         </div>
 
-        {/* Thông báo Notification */}
         {notification && (
           <div
             className={`flex items-center gap-3 p-4 mb-6 rounded-xl border ${
@@ -203,7 +203,6 @@ export default function AdminServicesPage() {
           </div>
         )}
 
-        {/* Bảng danh sách */}
         <div className="rounded-2xl border border-slate-800 bg-slate-900/60 backdrop-blur-sm overflow-hidden shadow-xl">
           {loading ? (
             <div className="flex flex-col items-center justify-center py-20 text-slate-400">
@@ -256,7 +255,11 @@ export default function AdminServicesPage() {
                       </td>
                       <td className="py-4 px-6">
                         <span className="inline-block rounded bg-slate-800 px-2 py-1 text-xs text-slate-300">
-                          {(item.features ?? "").split("\n").filter(Boolean).length} tính năng
+                          {Array.isArray(item.features)
+                            ? `${item.features.length} tính năng`
+                            : typeof item.features === "string" && item.features.trim() !== ""
+                            ? `${item.features.split("\n").filter(Boolean).length} tính năng`
+                            : "0 tính năng"}
                         </span>
                       </td>
                       <td className="py-4 px-6">
@@ -286,7 +289,6 @@ export default function AdminServicesPage() {
         </div>
       </div>
 
-      {/* MODAL THÊM / SỬA DỊCH VỤ */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
           <div className="w-full max-w-lg rounded-2xl border border-slate-800 bg-slate-900 p-6 md:p-8 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
