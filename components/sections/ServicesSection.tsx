@@ -8,7 +8,7 @@ interface ServiceItem {
   title: string;
   description: string;
   icon: string;
-  features: string | null;
+  features: string[] | string | null;
 }
 
 export function ServicesSection() {
@@ -62,39 +62,46 @@ export function ServicesSection() {
           <p className="text-center text-slate-500">Chưa có dịch vụ nào trong cơ sở dữ liệu.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {services.map((item) => (
-              <div
-                key={item.id}
-                className="flex flex-col justify-between rounded-2xl border border-cyan-500/20 bg-white dark:bg-slate-950 p-8 shadow-sm transition hover:shadow-cyan-500/10 hover:shadow-xl"
-              >
-                <div>
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10">
-                    {renderIcon(item.icon)}
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 dark:text-white">
-                    {item.title}
-                  </h3>
-                  <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
-                    {item.description}
-                  </p>
-                </div>
+            {services.map((item) => {
+              const featureList = Array.isArray(item.features)
+                ? item.features
+                : typeof item.features === "string"
+                ? item.features.split("\n")
+                : [];
 
-                <ul className="mt-8 space-y-3 border-t border-slate-200 dark:border-slate-800 pt-6">
-                  {(item.features ?? "")
-                    .split("\n")
-                    .filter(Boolean)
-                    .map((feat, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300"
-                      >
-                        <Check className="h-4 w-4 text-cyan-500 shrink-0" />
-                        <span>{feat}</span>
-                      </li>
-                    ))}
-                </ul>
-              </div>
-            ))}
+              return (
+                <div
+                  key={item.id}
+                  className="flex flex-col justify-between rounded-2xl border border-cyan-500/20 bg-white dark:bg-slate-950 p-8 shadow-sm transition hover:shadow-cyan-500/10 hover:shadow-xl"
+                >
+                  <div>
+                    <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl bg-cyan-500/10">
+                      {renderIcon(item.icon)}
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 dark:text-white">
+                      {item.title}
+                    </h3>
+                    <p className="mt-4 text-sm leading-relaxed text-slate-600 dark:text-slate-400">
+                      {item.description}
+                    </p>
+                  </div>
+
+                  <ul className="mt-8 space-y-3 border-t border-slate-200 dark:border-slate-800 pt-6">
+                    {featureList
+                      .filter(Boolean)
+                      .map((feat, index) => (
+                        <li
+                          key={index}
+                          className="flex items-center gap-3 text-sm text-slate-700 dark:text-slate-300"
+                        >
+                          <Check className="h-4 w-4 text-cyan-500 shrink-0" />
+                          <span>{feat}</span>
+                        </li>
+                      ))}
+                  </ul>
+                </div>
+              );
+            })}
           </div>
         )}
       </div>
