@@ -22,7 +22,6 @@ try {
             if (is_array($jsonDecoded)) {
                 $service['features'] = $jsonDecoded;
             } else {
-                // Tách theo dấu xuống dòng \n nếu trong CSDL là chuỗi thường
                 $service['features'] = array_values(array_filter(explode("\n", str_replace("\r", "", $service['features']))));
             }
         } else {
