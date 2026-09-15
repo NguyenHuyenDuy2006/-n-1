@@ -16,7 +16,10 @@ export function ServicesSection() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch("http://localhost/synapse-codex-main/backend/read.php")
+    // Thêm cache: "no-store" và timestamp để ép trình duyệt luôn gọi dữ liệu mới nhất từ CSDL
+    fetch("http://localhost/synapse-codex-main/backend/read.php?t=" + Date.now(), {
+      cache: "no-store",
+    })
       .then((res) => {
         if (!res.ok) throw new Error("HTTP error " + res.status);
         return res.json();
