@@ -1,7 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Code, Users, RefreshCw, Check } from "lucide-react";
+import { 
+  Code, 
+  Users, 
+  RefreshCw, 
+  Brain, 
+  Mail, 
+  Megaphone, 
+  Check, 
+  Loader2 
+} from "lucide-react";
 
 interface ServiceItem {
   id: number;
@@ -35,8 +44,15 @@ export function ServicesSection() {
       .finally(() => setLoading(false));
   }, []);
 
+  // Bổ sung đầy đủ mapping cho các loại icon theo giao diện mẫu
   const renderIcon = (iconName: string) => {
     switch (iconName) {
+      case "brain":
+        return <Brain className="h-6 w-6 text-cyan-500" />;
+      case "mail":
+        return <Mail className="h-6 w-6 text-cyan-500" />;
+      case "megaphone":
+        return <Megaphone className="h-6 w-6 text-cyan-500" />;
       case "users":
         return <Users className="h-6 w-6 text-cyan-500" />;
       case "refresh-cw":
@@ -48,7 +64,7 @@ export function ServicesSection() {
 
   return (
     <section id="services" className="py-20 bg-slate-900/50">
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-4 max-w-7xl">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold text-white">Dịch vụ của chúng tôi</h2>
           <p className="mt-2 text-slate-400">
@@ -57,9 +73,12 @@ export function ServicesSection() {
         </div>
 
         {loading ? (
-          <p className="text-center text-slate-400">Đang tải danh sách dịch vụ...</p>
+          <div className="flex items-center justify-center gap-2 py-20 text-slate-400">
+            <Loader2 className="h-5 w-5 animate-spin text-cyan-500" />
+            <span>Đang tải danh sách dịch vụ...</span>
+          </div>
         ) : services.length === 0 ? (
-          <p className="text-center text-slate-500">Chưa có dịch vụ nào trong cơ sở dữ liệu.</p>
+          <p className="text-center text-slate-500 py-12">Chưa có dịch vụ nào trong cơ sở dữ liệu.</p>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {services.map((item) => (
@@ -97,6 +116,13 @@ export function ServicesSection() {
             ))}
           </div>
         )}
+
+        {/* Nút hành động bổ sung theo bản thiết kế */}
+        <div className="mt-14 text-center">
+          <button className="rounded-xl border border-cyan-500 px-7 py-3 text-sm font-semibold text-cyan-400 hover:bg-cyan-500/10 transition">
+            Trao đổi giải pháp phù hợp
+          </button>
+        </div>
       </div>
     </section>
   );
